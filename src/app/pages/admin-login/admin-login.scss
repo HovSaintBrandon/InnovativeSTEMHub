@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.admin-login__container {
+  max-width: 30rem;
+}
+
+.admin-login p {
+  color: var(--ink-muted);
+  margin-top: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.admin-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-login .btn {
+  align-self: flex-start;
+}
+
+.admin-login__error {
+  color: var(--crimson);
+  font-size: 0.88rem;
+}

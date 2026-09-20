@@ -1,0 +1,77 @@
+<section id="contact" class="section contact">
+  <div class="container contact__grid">
+    <div class="contact__panel">
+      <h2>Get in touch</h2>
+      <p>Open to speaking, teacher-training partnerships, and research collaboration.</p>
+
+      <ul class="contact__details">
+        @for (mail of contact.emails; track mail) {
+          <li>
+            <app-icon name="mail" [size]="17" />
+            <a [href]="'mailto:' + mail">{{ mail }}</a>
+          </li>
+        }
+        <li>
+          <app-icon name="phone" [size]="17" />
+          <a [href]="'tel:' + contact.phone">{{ contact.phone }}</a>
+        </li>
+        <li>
+          <app-icon name="pin" [size]="17" />
+          <span>{{ contact.address }}</span>
+        </li>
+      </ul>
+
+      <div class="contact__socials">
+        @for (social of socials; track social.label) {
+          <a [href]="social.href" target="_blank" rel="noopener" [attr.aria-label]="social.label">
+            <app-icon [name]="social.icon" [size]="18" />
+          </a>
+        }
+      </div>
+    </div>
+
+    <form class="contact__form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" [class.field--invalid]="name.invalid && name.touched" />
+        @if (name.invalid && name.touched) {
+          <p class="field__error">Please share your name.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" [class.field--invalid]="email.invalid && email.touched" />
+        @if (email.invalid && email.touched) {
+          <p class="field__error">Enter a valid email address.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" formControlName="message" [class.field--invalid]="message.invalid && message.touched"></textarea>
+        @if (message.invalid && message.touched) {
+          <p class="field__error">Message should be at least 10 characters.</p>
+        }
+      </div>
+
+      <button class="btn btn--primary contact__submit" type="submit" [disabled]="status() === 'sending'">
+        @if (status() === 'sending') {
+          Sending&hellip;
+        } @else {
+          Send message
+          <app-icon name="send" [size]="16" />
+        }
+      </button>
+
+      @if (status() === 'success') {
+        <p class="contact__status contact__status--success">Message sent. Thank you &mdash; I'll reply soon.</p>
+      }
+      @if (status() === 'error') {
+        <p class="contact__status contact__status--error">
+          Something went wrong sending your message. Please try again or email directly.
+        </p>
+      }
+    </form>
+  </div>
+</section>

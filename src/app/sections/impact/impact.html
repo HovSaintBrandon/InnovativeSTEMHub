@@ -1,0 +1,26 @@
+<section id="impact" class="section impact">
+  <div class="container">
+    <div class="section__head">
+      <h2>Impact</h2>
+      <p>Two decades of moving STEM teaching practice forward, measured in the educators and learners it reaches.</p>
+    </div>
+
+    <div class="impact__stats">
+      @for (stat of stats; track stat.label) {
+        <div class="impact__stat">
+          <span class="impact__value">{{ stat.value }}</span>
+          <span class="impact__label">{{ stat.label }}</span>
+        </div>
+      }
+    </div>
+
+    <ul class="impact__milestones">
+      @for (milestone of milestones; track milestone.title) {
+        <li>
+          <h3>{{ milestone.title }}</h3>
+          <p>{{ milestone.detail }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

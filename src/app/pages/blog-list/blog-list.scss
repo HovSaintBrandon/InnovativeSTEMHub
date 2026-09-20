@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+.blog-list__status {
+  color: var(--ink-muted);
+}
+
+.blog-list__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 74ch;
+}
+
+.blog-list__items li {
+  border-top: 1px solid var(--ink-800);
+}
+.blog-list__items li:last-child {
+  border-bottom: 1px solid var(--ink-800);
+}
+
+.blog-list__items a {
+  display: block;
+  padding-block: 1.75rem;
+  text-decoration: none;
+}
+
+.blog-list__items h3 {
+  font-size: 1.3rem;
+  transition: color 0.2s ease;
+}
+.blog-list__items a:hover h3 {
+  color: var(--science-blue-soft);
+}
+
+.blog-list__items p {
+  margin-top: 0.6rem;
+  color: var(--ink-text);
+}
+
+.blog-list__items time {
+  display: block;
+  margin-top: 0.85rem;
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+}

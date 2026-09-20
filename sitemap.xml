@@ -1,15 +1,7 @@
-<!-- filepath: /home/saint/Documents/website project/demo-port/sitemap.xml -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://InnovativeSTEMHub/home</loc>
-        <loc>https://Innovativestemhub/home</loc>
-        <lastmod>2025-04-07</lastmod>
+        <loc>https://innovativestemhub.com/</loc>
+        <lastmod>2026-09-19</lastmod>
         <priority>1.0</priority>
-    </url>
-    <url>
-        <loc>https://InnovativeSTEMHub/about</loc>
-        <loc>https://Innovativestemhub/about</loc>
-        <lastmod>2025-04-07</lastmod>
-        <priority>0.8</priority>
     </url>
 </urlset>

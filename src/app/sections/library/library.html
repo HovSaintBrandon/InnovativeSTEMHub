@@ -1,0 +1,31 @@
+@if (items().length) {
+  <section id="library" class="section library">
+    <div class="container">
+      <div class="section__head">
+        <h2>Books &amp; reads</h2>
+        <p>What's currently on the desk &mdash; books, papers, and articles shaping the work.</p>
+      </div>
+
+      <ul class="library__grid">
+        @for (item of items(); track item.id) {
+          <li>
+            <span class="library__type">{{ item.type === 'book' ? 'Book' : 'Read' }}</span>
+            <h3>
+              @if (item.url) {
+                <a [href]="item.url" target="_blank" rel="noopener">{{ item.title }}</a>
+              } @else {
+                {{ item.title }}
+              }
+            </h3>
+            @if (item.author) {
+              <p class="library__author">{{ item.author }}</p>
+            }
+            @if (item.note) {
+              <p class="library__note">{{ item.note }}</p>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+}

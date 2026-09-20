@@ -1,0 +1,29 @@
+<header class="nav" [class.nav--scrolled]="scrolled()">
+  <div class="nav__inner container">
+    <a routerLink="/" fragment="home" class="nav__brand" (click)="closeMenu()">{{ name }}</a>
+
+    <button
+      type="button"
+      class="nav__toggle"
+      [class.nav__toggle--open]="menuOpen()"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="primary-navigation"
+      aria-label="Toggle navigation menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav id="primary-navigation" class="nav__links" [class.nav__links--open]="menuOpen()">
+      @for (link of links; track link.label) {
+        @if (link.path) {
+          <a [routerLink]="link.path" (click)="closeMenu()">{{ link.label }}</a>
+        } @else {
+          <a routerLink="/" [fragment]="link.fragment" (click)="closeMenu()">{{ link.label }}</a>
+        }
+      }
+    </nav>
+  </div>
+</header>

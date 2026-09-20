@@ -1,0 +1,224 @@
+<section class="page section admin">
+  <div class="container">
+    <header class="admin__header">
+      <div>
+        <h1>Admin</h1>
+        <p>Signed in as {{ email() }}</p>
+      </div>
+      <button class="btn btn--ghost" type="button" (click)="signOut()">Sign out</button>
+    </header>
+
+    <nav class="admin__tabs">
+      @for (tab of tabs; track tab.id) {
+        <button
+          type="button"
+          class="admin__tab"
+          [class.admin__tab--active]="activeTab() === tab.id"
+          (click)="setTab(tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+      }
+    </nav>
+
+    @switch (activeTab()) {
+      @case ('photo') {
+        <div class="admin__panel admin__panel--narrow">
+          <h2>Homepage photo</h2>
+          <p>This replaces the portrait shown in the hero section.</p>
+
+          @if (currentPhotoUrl(); as url) {
+            <img class="admin__photo-preview" [src]="url" alt="Current homepage portrait" />
+          }
+
+          <div class="field">
+            <label for="photo-input">New photo</label>
+            <input id="photo-input" type="file" accept="image/*" (change)="onPhotoSelected($event)" />
+          </div>
+
+          <button class="btn btn--primary" type="button" [disabled]="photoUploading()" (click)="uploadPhoto()">
+            @if (photoUploading()) {
+              Uploading&hellip;
+            } @else {
+              Upload photo
+            }
+          </button>
+        </div>
+      }
+
+      @case ('research') {
+        <div class="admin__panel">
+          <h2>Current research</h2>
+
+          <form class="admin__form" [formGroup]="researchForm" (ngSubmit)="addResearch()" novalidate>
+            <div class="field">
+              <label for="research-title">Title</label>
+              <input id="research-title" type="text" formControlName="title" />
+            </div>
+            <div class="field field--inline">
+              <label for="research-year">Year</label>
+              <input id="research-year" type="text" formControlName="year" placeholder="2026" />
+            </div>
+            <div class="field">
+              <label for="research-url">Link (optional)</label>
+              <input id="research-url" type="url" formControlName="url" placeholder="https://" />
+            </div>
+            <div class="field">
+              <label for="research-summary">Summary (optional)</label>
+              <textarea id="research-summary" rows="3" formControlName="summary"></textarea>
+            </div>
+            <button class="btn btn--primary" type="submit">Add research item</button>
+          </form>
+
+          <ul class="admin__list">
+            @for (item of researchItems(); track item.id) {
+              <li>
+                <div>
+                  <strong>{{ item.title }}</strong>
+                  <span>{{ item.year }}</span>
+                </div>
+                <button class="admin__delete" type="button" (click)="removeResearch(item.id)">Remove</button>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      @case ('library') {
+        <div class="admin__panel">
+          <h2>Books &amp; reads</h2>
+
+          <form class="admin__form" [formGroup]="libraryForm" (ngSubmit)="addLibraryItem()" novalidate>
+            <div class="field">
+              <label for="lib-title">Title</label>
+              <input id="lib-title" type="text" formControlName="title" />
+            </div>
+            <div class="field">
+              <label for="lib-author">Author (optional)</label>
+              <input id="lib-author" type="text" formControlName="author" />
+            </div>
+            <div class="field field--inline">
+              <label for="lib-type">Type</label>
+              <select id="lib-type" formControlName="type">
+                <option value="book">Book</option>
+                <option value="read">Read</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="lib-url">Link (optional)</label>
+              <input id="lib-url" type="url" formControlName="url" placeholder="https://" />
+            </div>
+            <div class="field">
+              <label for="lib-note">Note (optional)</label>
+              <textarea id="lib-note" rows="2" formControlName="note"></textarea>
+            </div>
+            <button class="btn btn--primary" type="submit">Add to list</button>
+          </form>
+
+          <ul class="admin__list">
+            @for (item of libraryItems(); track item.id) {
+              <li>
+                <div>
+                  <strong>{{ item.title }}</strong>
+                  <span>{{ item.type === 'book' ? 'Book' : 'Read' }}</span>
+                </div>
+                <button class="admin__delete" type="button" (click)="removeLibraryItem(item.id)">Remove</button>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      @case ('posts') {
+        <div class="admin__panel">
+          <h2>{{ editingPostId() ? 'Edit post' : 'New post' }}</h2>
+
+          <form class="admin__form" [formGroup]="postForm" (ngSubmit)="savePost()" novalidate>
+            <div class="field">
+              <label for="post-title">Title</label>
+              <input id="post-title" type="text" formControlName="title" />
+            </div>
+            <div class="field">
+              <label for="post-excerpt">Excerpt</label>
+              <textarea id="post-excerpt" rows="2" formControlName="excerpt"></textarea>
+            </div>
+            <div class="field">
+              <label for="post-content">Content (Markdown supported)</label>
+              <textarea id="post-content" rows="10" formControlName="content"></textarea>
+            </div>
+            <div class="field">
+              <label for="post-cover">Cover image (optional)</label>
+              <input id="post-cover" type="file" accept="image/*" (change)="onCoverSelected($event)" />
+            </div>
+            <div class="field field--inline">
+              <label for="post-status">Status</label>
+              <select id="post-status" formControlName="status">
+                <option value="draft">Draft</option>
+                <option value="published">Published</option>
+              </select>
+            </div>
+
+            <div class="admin__form-actions">
+              <button class="btn btn--primary" type="submit" [disabled]="postSaving()">
+                @if (postSaving()) {
+                  Saving&hellip;
+                } @else {
+                  {{ editingPostId() ? 'Save changes' : 'Create post' }}
+                }
+              </button>
+              @if (editingPostId()) {
+                <button class="btn btn--ghost" type="button" (click)="cancelEditPost()">Cancel</button>
+              }
+            </div>
+          </form>
+
+          <ul class="admin__list admin__list--posts">
+            @for (post of posts(); track post.id) {
+              <li>
+                <div>
+                  <strong>{{ post.title }}</strong>
+                  <span class="admin__badge" [class.admin__badge--published]="post.status === 'published'">
+                    {{ post.status }}
+                  </span>
+                </div>
+                <div class="admin__row-actions">
+                  <button type="button" (click)="editPost(post)">Edit</button>
+                  <button type="button" (click)="togglePostStatus(post)">
+                    {{ post.status === 'published' ? 'Unpublish' : 'Publish' }}
+                  </button>
+                  <button class="admin__delete" type="button" (click)="removePost(post.id)">Delete</button>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      @case ('comments') {
+        <div class="admin__panel">
+          <h2>Comments awaiting review</h2>
+
+          @if (pendingComments().length) {
+            <ul class="admin__list admin__list--comments">
+              @for (comment of pendingComments(); track comment.id) {
+                <li>
+                  <p class="admin__comment-meta">
+                    <strong>{{ comment.name }}</strong>
+                    <span>on &ldquo;{{ postTitle(comment.postId) }}&rdquo;</span>
+                  </p>
+                  <p>{{ comment.comment }}</p>
+                  <div class="admin__row-actions">
+                    <button type="button" (click)="approve(comment.id)">Approve</button>
+                    <button class="admin__delete" type="button" (click)="reject(comment.id)">Reject</button>
+                  </div>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="admin__empty">Nothing waiting for review.</p>
+          }
+        </div>
+      }
+    }
+  </div>
+</section>

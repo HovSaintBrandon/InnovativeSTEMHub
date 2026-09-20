@@ -1,0 +1,35 @@
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <p class="footer__name">{{ name }}</p>
+      <p class="footer__tag">Championing STEM education</p>
+    </div>
+
+    <nav class="footer__links">
+      @for (link of links; track link.label) {
+        @if (link.path) {
+          <a [routerLink]="link.path">{{ link.label }}</a>
+        } @else {
+          <a routerLink="/" [fragment]="link.fragment">{{ link.label }}</a>
+        }
+      }
+    </nav>
+
+    <div class="footer__socials">
+      @for (social of socials; track social.label) {
+        <a [href]="social.href" target="_blank" rel="noopener" [attr.aria-label]="social.label">
+          <app-icon [name]="social.icon" [size]="18" />
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="container footer__legal">
+    <p>Copyright &copy; {{ year }} {{ name }}. All rights reserved.</p>
+    <p class="footer__credit">
+      Behind the pixels:
+      <a href="https://saint-st.github.io/CyberSec-Portfolio/" target="_blank" rel="noopener">Saint-Brandon</a>
+    </p>
+    <a class="footer__admin" routerLink="/admin/login">Sign in</a>
+  </div>
+</footer>

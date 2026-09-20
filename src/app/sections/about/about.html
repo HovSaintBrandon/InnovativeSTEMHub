@@ -1,0 +1,28 @@
+<section id="about" class="section about">
+  <div class="container about__grid">
+    <div class="about__intro">
+      <div class="section__head">
+        <h2>About</h2>
+      </div>
+      <p class="about__bio">{{ bio }}</p>
+
+      <dl class="about__degrees">
+        @for (degree of degrees; track degree.school) {
+          <div class="about__degree">
+            <dt>{{ degree.level }}</dt>
+            <dd>{{ degree.field }}, {{ degree.school }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+
+    <div class="about__expertise">
+      <h3>Areas of expertise</h3>
+      <ul class="about__tags">
+        @for (item of expertise; track item) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

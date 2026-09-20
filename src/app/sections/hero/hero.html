@@ -1,0 +1,43 @@
+<section id="home" class="hero">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="hero__credential">{{ profile.credential }}, {{ profile.affiliation }}</p>
+
+      <h1 class="hero__name">{{ profile.name }}</h1>
+
+      <p class="hero__role">
+        <span>I am a</span>
+        <span class="hero__role-typed"><app-typewriter [words]="profile.roles" /></span>
+      </p>
+
+      <p class="hero__summary">{{ profile.heroSummary }}</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" [href]="profile.cvUrl" target="_blank" rel="noopener" download>
+          Download CV
+          <app-icon name="download" [size]="18" />
+        </a>
+        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+      </div>
+
+      <div class="hero__socials">
+        @for (social of socials; track social.label) {
+          <a [href]="social.href" target="_blank" rel="noopener" [attr.aria-label]="social.label">
+            <app-icon [name]="social.icon" [size]="18" />
+          </a>
+        }
+      </div>
+    </div>
+
+    <div class="hero__portrait">
+      <div class="hero__plate">
+        <img [src]="portraitUrl()" [alt]="profile.name + ', wearing doctoral regalia'" />
+      </div>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#about">
+    <span>Scroll</span>
+    <app-icon name="chevron-down" [size]="16" />
+  </a>
+</section>

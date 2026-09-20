@@ -1,0 +1,128 @@
+:host {
+  display: block;
+}
+
+.research__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.research__head {
+  margin-bottom: 0;
+}
+
+.research__stats {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 2rem;
+}
+
+.research__stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.research__stats span:last-child {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  max-width: 20ch;
+}
+
+.research__value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.research__profiles {
+  border-left: 1px solid var(--ink-800);
+  padding-left: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+.research__profiles h3 {
+  font-size: 1.05rem;
+  margin-bottom: 1.1rem;
+}
+
+.research__profiles ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.research__profiles a {
+  color: var(--science-blue-soft);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+.research__profiles a:hover {
+  color: var(--paper);
+  text-decoration-color: currentColor;
+}
+
+@media (max-width: 860px) {
+  .research__grid {
+    grid-template-columns: 1fr;
+  }
+  .research__profiles {
+    border-left: none;
+    border-top: 1px solid var(--ink-800);
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+}
+
+.research__current {
+  list-style: none;
+  margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+  padding: 0;
+  max-width: 74ch;
+}
+
+.research__current li {
+  padding-block: 1.25rem;
+  border-top: 1px solid var(--ink-800);
+}
+.research__current li:last-child {
+  border-bottom: 1px solid var(--ink-800);
+}
+
+.research__current-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.research__current-heading h3 {
+  font-size: 1rem;
+}
+
+.research__current-heading a {
+  color: var(--paper);
+  text-decoration: none;
+}
+.research__current-heading a:hover {
+  color: var(--science-blue-soft);
+}
+
+.research__current-heading span {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.research__current p {
+  margin-top: 0.4rem;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}

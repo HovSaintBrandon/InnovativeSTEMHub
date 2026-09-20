@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.development__columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 4rem);
+}
+
+.development__column h3 {
+  font-size: 1.05rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ink-800);
+}
+
+.development__column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.development__column li {
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--ink-850);
+  color: var(--ink-text);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  .development__columns {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}

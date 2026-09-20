@@ -1,0 +1,50 @@
+<section id="research" class="section research">
+  <div class="container research__grid">
+    <div class="section__head research__head">
+      <h2>Research &amp; publications</h2>
+      <p>Work presented at international conferences and published for use by educators and researchers alike.</p>
+
+      <div class="research__stats">
+        @for (stat of stats; track stat.label) {
+          <div>
+            <span class="research__value">{{ stat.value }}</span>
+            <span>{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="research__profiles">
+      <h3>Find the full record</h3>
+      <ul>
+        @for (profile of profiles; track profile.label) {
+          <li>
+            <a [href]="profile.href" target="_blank" rel="noopener">{{ profile.label }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  @if (currentResearch().length) {
+    <ul class="research__current container">
+      @for (item of currentResearch(); track item.id) {
+        <li>
+          <div class="research__current-heading">
+            <h3>
+              @if (item.url) {
+                <a [href]="item.url" target="_blank" rel="noopener">{{ item.title }}</a>
+              } @else {
+                {{ item.title }}
+              }
+            </h3>
+            <span>{{ item.year }}</span>
+          </div>
+          @if (item.summary) {
+            <p>{{ item.summary }}</p>
+          }
+        </li>
+      }
+    </ul>
+  }
+</section>

@@ -1,0 +1,78 @@
+<section class="page section blog-post">
+  <div class="container">
+    @switch (state()) {
+      @case ('loading') {
+        <p class="blog-post__status">Loading&hellip;</p>
+      }
+      @case ('not-found') {
+        <p class="blog-post__status">That post doesn't exist. <a routerLink="/blog">Back to the blog</a>.</p>
+      }
+      @case ('error') {
+        <p class="blog-post__status">This post isn't available right now. Please check back soon.</p>
+      }
+      @case ('ready') {
+        @if (post(); as p) {
+          <a class="blog-post__back" routerLink="/blog">&larr; All posts</a>
+
+          <article class="blog-post__article">
+            <time>{{ formatDate(p.createdAt) }}</time>
+            <h1>{{ p.title }}</h1>
+            @if (p.coverImageUrl) {
+              <img class="blog-post__cover" [src]="p.coverImageUrl" [alt]="p.title" />
+            }
+            <div class="blog-post__body" [innerHTML]="contentHtml()"></div>
+          </article>
+
+          <section class="blog-post__comments">
+            <h2>Comments</h2>
+
+            @if (comments().length) {
+              <ul>
+                @for (comment of comments(); track comment.id) {
+                  <li>
+                    <p class="blog-post__comment-meta">
+                      <strong>{{ comment.name }}</strong>
+                      <span>{{ formatDate(comment.createdAt) }}</span>
+                    </p>
+                    <p>{{ comment.comment }}</p>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="blog-post__status">No comments yet &mdash; be the first to share your thoughts.</p>
+            }
+
+            <form class="blog-post__comment-form" [formGroup]="commentForm" (ngSubmit)="submitComment()" novalidate>
+              <div class="field">
+                <label for="comment-name">Name</label>
+                <input id="comment-name" type="text" formControlName="name" />
+              </div>
+              <div class="field">
+                <label for="comment-text">Comment</label>
+                <textarea id="comment-text" rows="4" formControlName="comment"></textarea>
+              </div>
+              <button class="btn btn--primary" type="submit" [disabled]="commentStatus() === 'sending'">
+                @if (commentStatus() === 'sending') {
+                  Posting&hellip;
+                } @else {
+                  Post comment
+                }
+              </button>
+
+              @if (commentStatus() === 'sent') {
+                <p class="blog-post__comment-note">
+                  Thanks! Your comment is awaiting a quick review and will appear once approved.
+                </p>
+              }
+              @if (commentStatus() === 'error') {
+                <p class="blog-post__comment-note blog-post__comment-note--error">
+                  Something went wrong posting your comment. Please try again.
+                </p>
+              }
+            </form>
+          </section>
+        }
+      }
+    }
+  </div>
+</section>
