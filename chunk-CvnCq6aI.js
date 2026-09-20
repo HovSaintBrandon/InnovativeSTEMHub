@@ -1,0 +1,1 @@
+import"./chunk-B8Z8-Swm.js";import{a as fs,i as ds,l as lc,s as hs}from"./chunk-DK7x3LgS.js";function m(){return new Promise(r=>{let o=hs(lc,s=>{o(),r(s)})})}function d(r){return hs(lc,r)}async function g(r,o){await ds(lc,r,o)}async function l(){await fs(lc)}export{m as currentUser,g as login,l as logout,d as watchUser};
