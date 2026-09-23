@@ -71,8 +71,8 @@ export const PROFILE = {
     'Open Education Resources (OER)',
     'Blended Learning & Moodle Platform',
   ],
-  cvUrl: '/documents/dr-rose-atieno-mutende-cv.pdf',
-  portraitUrl: '/images/rose-mutende.png',
+  cvUrl: 'documents/dr-rose-atieno-mutende-cv.pdf',
+  portraitUrl: 'images/rose-mutende.png',
   contact: {
     emails: ['rmutende@kibu.ac.ke', 'rose.oranga89@gmail.com'],
     phone: '+254 724 400 442',
