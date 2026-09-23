@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://innovativestemhub.co.ke/sitemap.xml
